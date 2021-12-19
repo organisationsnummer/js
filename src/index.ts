@@ -3,7 +3,7 @@ import { OrganisationsnummerError } from './errors';
 
 class Organisationsnummer {
   /**
-   * The organization numer.
+   * The organization number.
    *
    * @var {string}
    */

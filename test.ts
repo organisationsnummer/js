@@ -1,10 +1,11 @@
-import organisationsnummer from './src';
+const lib = require(process.env.FILE);
+const Organisationsnummer = lib.default ? lib.default : lib;
 
 it('should validate valid organization numbers', () => {
   const numbers = ['556016-0680', '556103-4249', '5561034249'];
 
   numbers.forEach((number) =>
-    expect(organisationsnummer.valid(number)).toBeTruthy()
+    expect(Organisationsnummer.valid(number)).toBeTruthy()
   );
 });
 
@@ -12,7 +13,7 @@ it('should validate invalid organization numbers', () => {
   const numbers = ['556016-0681', '556103-4250', '5561034250'];
 
   numbers.forEach((number) =>
-    expect(organisationsnummer.valid(number)).toBeFalsy()
+    expect(Organisationsnummer.valid(number)).toBeFalsy()
   );
 });
 
@@ -24,7 +25,7 @@ it('should format organization numbers without separator', () => {
   };
 
   Object.entries(numbers).forEach(([input, output]) =>
-    expect(organisationsnummer.parse(input).format()).toBe(output)
+    expect(Organisationsnummer.parse(input).format()).toBe(output)
   );
 });
 
@@ -36,7 +37,7 @@ it('should format organization numbers with separator', () => {
   };
 
   Object.entries(numbers).forEach(([input, output]) =>
-    expect(organisationsnummer.parse(input).format(true)).toBe(output)
+    expect(Organisationsnummer.parse(input).format(true)).toBe(output)
   );
 });
 
@@ -48,6 +49,6 @@ it('should get type from organization numbers', () => {
   };
 
   Object.entries(numbers).forEach(([input, output]) =>
-    expect(organisationsnummer.parse(input).getType()).toBe(output)
+    expect(Organisationsnummer.parse(input).getType()).toBe(output)
   );
 });

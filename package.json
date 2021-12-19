@@ -1,9 +1,9 @@
 {
   "name": "organisationsnummer",
-  "description": "Validate Swedish personal identity numbers",
+  "description": "Validate organization numbers",
   "version": "3.1.4",
   "license": "MIT",
-  "homepage": "https://github.com/personnummer/js",
+  "homepage": "https://github.com/organisationsnummer/js",
   "author": {
     "name": "Fredrik Forsmo",
     "email": "fredrik.forsmo@gmail.com",
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/personnummer/js.git"
+    "url": "git://github.com/organisationsnummer/js.git"
   },
   "files": [
     "dist/**/*"
@@ -32,7 +32,7 @@
     "@typescript-eslint/eslint-plugin": "^5.7.0",
     "@typescript-eslint/parser": "^5.7.0",
     "core-js": "^3.19.3",
-    "esbuild": "^0.14.3",
+    "esbuild": "^0.14.5",
     "esbuild-jest": "^0.5.0",
     "eslint": "^8.4.1",
     "is-ci": "^3.0.1",
@@ -52,6 +52,6 @@
   ],
   "funding": {
     "type": "opencollective",
-    "url": "https://opencollective.com/personnummer"
+    "url": "https://opencollective.com/organisationsnummer"
   }
 }
