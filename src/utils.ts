@@ -1,3 +1,10 @@
+/**
+ * The luhn algorithm
+ *
+ * @param  {string} str
+ *
+ * @return {boolean}
+ */
 export const luhn = (str: string): boolean => {
   let sum = 0;
 

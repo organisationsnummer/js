@@ -2,15 +2,18 @@ import { luhn } from './utils';
 import { OrganisationsnummerError } from './errors';
 
 class Organisationsnummer {
+  /**
+   * The organization numer.
+   *
+   * @var {string}
+   */
   private orgNum = '';
 
   /**
-   * Parse organisationsnummer and set class properties.
+   * Parse organisationsnummer.
    *
    * @param {string} input
-   * @param {object} options
    */
-  // eslint-disable-next-line
   private parse(input: string) {
     const number = input.replace('-', '');
 
@@ -47,7 +50,6 @@ class Organisationsnummer {
    * Organisationsnummer constructor.
    *
    * @param {string} ssn
-   * @param {object} options
    */
   constructor(input: string) {
     this.parse(input);
@@ -57,7 +59,6 @@ class Organisationsnummer {
    * Parse organisationsnummer.
    *
    * @param {string} input
-   * @param {object} options
    *
    * @return {Organisationsnummer}
    */
@@ -66,10 +67,9 @@ class Organisationsnummer {
   }
 
   /**
-   * Validate a Swedish organisational number.
+   * Validate a Swedish organization number.
    *
-   * @param {string} str
-   * @param {object} options
+   * @param {string} input
    *
    * @return {boolean}
    */
@@ -83,7 +83,7 @@ class Organisationsnummer {
   }
 
   /**
-   * Format Swedish organisational number with or without separator.
+   * Format Swedish organization number with or without separator.
    *
    * @return {boolean}
    */
