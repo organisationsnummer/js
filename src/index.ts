@@ -1,17 +1,8 @@
 import { luhn } from './utils';
 import { OrganisationsnummerError } from './errors';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type OptionsType = Record<string, any>;
-
 class Organisationsnummer {
-  private orgIdentifierNum = '';
-  private groupNum = '';
-  private orgNum1 = '';
-  private orgNum3 = '';
-  private orgNum4 = '';
-  private orgValidation = '';
-  private checkNum = '';
+  private orgNum = '';
 
   /**
    * Parse organisationsnummer and set class properties.
@@ -20,35 +11,36 @@ class Organisationsnummer {
    * @param {object} options
    */
   // eslint-disable-next-line
-  private parse(input: string, options?: OptionsType) {
-    const reg =
-      /^(\d{2}){0,1}(\d{1})(\d{1})(\d{2})(\d{2})([-]{0,1})?(\d{3})(\d{1})$/g;
-    const match = reg.exec(input);
+  private parse(input: string) {
+    const number = input.replace('-', '');
+
+    const reg = /^(\d{2}){0,1}(\d{2})(\d{2})(\d{2})([-]?)?((?!000)\d{3})(\d)$/g;
+    const match = reg.exec(number);
 
     if (!match) {
       throw new OrganisationsnummerError();
     }
 
-    this.orgIdentifierNum = match[1];
-    this.groupNum = match[2];
-    this.orgNum1 = match[3];
-    this.orgValidation = match[4];
-    this.orgNum3 = match[5];
-    // const sep = match[6]
-    this.orgNum4 = match[7];
-    this.checkNum = match[8];
-
-    if (
-      +this.groupNum === 4 ||
-      +this.orgValidation < 20 ||
-      (this.orgIdentifierNum && +this.orgIdentifierNum !== 16)
-    ) {
+    // May only be prefixed with 16.
+    if (match[1] && +match[1] !== 16) {
       throw new OrganisationsnummerError();
     }
 
-    if (!this.valid()) {
+    // Third digit bust be more than 20.
+    if (+match[3] < 20) {
       throw new OrganisationsnummerError();
     }
+
+    // May not start with leading 0.
+    if (+match[2] < 10) {
+      throw new OrganisationsnummerError();
+    }
+
+    if (!luhn(number)) {
+      throw new OrganisationsnummerError();
+    }
+
+    this.orgNum = number;
   }
 
   /**
@@ -57,8 +49,8 @@ class Organisationsnummer {
    * @param {string} ssn
    * @param {object} options
    */
-  constructor(input: string, options?: OptionsType) {
-    this.parse(input, options);
+  constructor(input: string) {
+    this.parse(input);
   }
 
   /**
@@ -69,8 +61,8 @@ class Organisationsnummer {
    *
    * @return {Organisationsnummer}
    */
-  static parse(input: string, options?: OptionsType): Organisationsnummer {
-    return new Organisationsnummer(input, options);
+  static parse(input: string): Organisationsnummer {
+    return new Organisationsnummer(input);
   }
 
   /**
@@ -81,9 +73,9 @@ class Organisationsnummer {
    *
    * @return {boolean}
    */
-  static valid(input: string, options?: OptionsType): boolean {
+  static valid(input: string): boolean {
     try {
-      this.parse(input, options);
+      this.parse(input);
       return true;
     } catch (err) {
       return false;
@@ -96,31 +88,31 @@ class Organisationsnummer {
    * @return {boolean}
    */
   public format(long = false): string {
-    const orgNum =
-      this.groupNum +
-      this.orgNum1 +
-      this.orgValidation +
-      this.orgNum3 +
-      this.orgNum4 +
-      this.checkNum;
-
-    return long ? orgNum.slice(0, 6) + '-' + orgNum.slice(6) : orgNum;
+    return long
+      ? this.orgNum.slice(0, 6) + '-' + this.orgNum.slice(6)
+      : this.orgNum;
   }
 
   /**
-   * Validate a Swedish organisational number.
+   * Get the organization type.
    *
-   * @return {boolean}
+   * @return string
    */
-  private valid(): boolean {
-    return luhn(
-      this.groupNum +
-        this.orgNum1 +
-        this.orgValidation +
-        this.orgNum3 +
-        this.orgNum4 +
-        this.checkNum
-    );
+  public getType(): string {
+    const types = {
+      0: '',
+      1: 'Dödsbon',
+      2: 'Stat, landsting, kommuner och församlingar',
+      3: 'Utländska företag som bedriver näringsverksamhet eller äger fastigheter i Sverige',
+      4: '',
+      5: 'Aktiebolag',
+      6: 'Enkelt bolag',
+      7: 'Ekonomiska föreningar',
+      8: 'Ideella föreningar och stiftelser',
+      9: 'Handelsbolag, kommanditbolag och enkla bolag',
+    };
+
+    return types[+this.orgNum[0]];
   }
 }
 

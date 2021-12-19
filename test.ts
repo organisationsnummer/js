@@ -1,22 +1,22 @@
-import Organisationsnummer from './src/index';
+import organisationsnummer from './src';
 
-it('should validate valid organization numers', () => {
+it('should validate valid organization numbers', () => {
   const numbers = ['556016-0680', '556103-4249', '5561034249'];
 
   numbers.forEach((number) =>
-    expect(Organisationsnummer.valid(number)).toBeTruthy()
+    expect(organisationsnummer.valid(number)).toBeTruthy()
   );
 });
 
-it('should validate invalid organization numers', () => {
+it('should validate invalid organization numbers', () => {
   const numbers = ['556016-0681', '556103-4250', '5561034250'];
 
   numbers.forEach((number) =>
-    expect(Organisationsnummer.valid(number)).toBeFalsy()
+    expect(organisationsnummer.valid(number)).toBeFalsy()
   );
 });
 
-it('should format organization numers without separator', () => {
+it('should format organization numbers without separator', () => {
   const numbers = {
     '556016-0680': '5560160680',
     '556103-4249': '5561034249',
@@ -24,11 +24,11 @@ it('should format organization numers without separator', () => {
   };
 
   Object.entries(numbers).forEach(([input, output]) =>
-    expect(new Organisationsnummer(input).format()).toBe(output)
+    expect(organisationsnummer.parse(input).format()).toBe(output)
   );
 });
 
-it('should format organization numers with separator', () => {
+it('should format organization numbers with separator', () => {
   const numbers = {
     '556016-0680': '556016-0680',
     '556103-4249': '556103-4249',
@@ -36,6 +36,18 @@ it('should format organization numers with separator', () => {
   };
 
   Object.entries(numbers).forEach(([input, output]) =>
-    expect(new Organisationsnummer(input).format(true)).toBe(output)
+    expect(organisationsnummer.parse(input).format(true)).toBe(output)
+  );
+});
+
+it('should get type from organization numbers', () => {
+  const numbers = {
+    '556016-0680': 'Aktiebolag',
+    '556103-4249': 'Aktiebolag',
+    '5561034249': 'Aktiebolag',
+  };
+
+  Object.entries(numbers).forEach(([input, output]) =>
+    expect(organisationsnummer.parse(input).getType()).toBe(output)
   );
 });
