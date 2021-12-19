@@ -53,5 +53,8 @@
   "funding": {
     "type": "opencollective",
     "url": "https://opencollective.com/organisationsnummer"
+  },
+  "dependencies": {
+    "personnummer": "^3.1.4"
   }
 }

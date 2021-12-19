@@ -25,7 +25,7 @@ it('should format organization numbers without separator', () => {
   };
 
   Object.entries(numbers).forEach(([input, output]) =>
-    expect(Organisationsnummer.parse(input).format()).toBe(output)
+    expect(Organisationsnummer.parse(input).format(false)).toBe(output)
   );
 });
 
@@ -37,7 +37,7 @@ it('should format organization numbers with separator', () => {
   };
 
   Object.entries(numbers).forEach(([input, output]) =>
-    expect(Organisationsnummer.parse(input).format(true)).toBe(output)
+    expect(Organisationsnummer.parse(input).format()).toBe(output)
   );
 });
 
@@ -51,4 +51,19 @@ it('should get type from organization numbers', () => {
   Object.entries(numbers).forEach(([input, output]) =>
     expect(Organisationsnummer.parse(input).getType()).toBe(output)
   );
+});
+
+it('should work with personnummer', () => {
+  const type = 'Enskild firma';
+  const numbers = { '121212121212': '121212-1212' };
+
+  Object.entries(numbers).forEach(([input, output]) => {
+    expect(Organisationsnummer.valid(output)).toBeTruthy();
+    expect(Organisationsnummer.valid(input)).toBeTruthy();
+    expect(Organisationsnummer.parse(input).format(false)).toBe(
+      output.replace('-', '')
+    );
+    expect(Organisationsnummer.parse(input).format(true)).toBe(output);
+    expect(Organisationsnummer.parse(input).getType()).toBe(type);
+  });
 });
