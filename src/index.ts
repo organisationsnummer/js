@@ -126,20 +126,19 @@ class Organisationsnummer {
       return 'Enskild firma';
     }
 
+    const unkown = 'Okänt';
     const types = {
-      0: '',
       1: 'Dödsbon',
-      2: 'Stat, landsting, kommuner och församlingar',
+      2: 'Stat, landsting, kommun eller församling',
       3: 'Utländska företag som bedriver näringsverksamhet eller äger fastigheter i Sverige',
-      4: '',
       5: 'Aktiebolag',
       6: 'Enkelt bolag',
-      7: 'Ekonomiska föreningar',
-      8: 'Ideella föreningar och stiftelser',
-      9: 'Handelsbolag, kommanditbolag och enkla bolag',
+      7: 'Ekonomisk förening eller bostadsrättsförening',
+      8: 'Ideella förening och stiftelse',
+      9: 'Handelsbolag, kommanditbolag och enkelt bolag',
     };
 
-    return types[+this.number[0]];
+    return types[+this.number[0]] || unkown;
   }
 }
 
