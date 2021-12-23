@@ -1,3 +1,4 @@
+const Personnummer = require('personnummer').default;
 const lib = require(process.env.FILE);
 const Organisationsnummer = lib.default ? lib.default : lib;
 
@@ -60,10 +61,11 @@ it('should work with personnummer', () => {
   Object.entries(numbers).forEach(([input, output]) => {
     expect(Organisationsnummer.valid(output)).toBeTruthy();
     expect(Organisationsnummer.valid(input)).toBeTruthy();
-    expect(Organisationsnummer.parse(input).format(false)).toBe(
-      output.replace('-', '')
-    );
-    expect(Organisationsnummer.parse(input).format(true)).toBe(output);
-    expect(Organisationsnummer.parse(input).getType()).toBe(type);
+    const org = Organisationsnummer.parse(input);
+    expect(org.format(false)).toBe(output.replace('-', ''));
+    expect(org.format(true)).toBe(output);
+    expect(org.getType()).toBe(type);
+    expect(org.isPersonnummer()).toBeTruthy();
+    expect(org.getPersonnummer()).toBeInstanceOf(Personnummer);
   });
 });

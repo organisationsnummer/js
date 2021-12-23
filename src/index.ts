@@ -117,6 +117,24 @@ class Organisationsnummer {
   }
 
   /**
+   * Get Personnummer instance.
+   *
+   * @return {Personnummer}
+   */
+  public getPersonnummer(): Personnummer {
+    return this.personnummer;
+  }
+
+  /**
+   * Determine if personnummer or not.
+   *
+   * @return {boolean}
+   */
+  public isPersonnummer(): boolean {
+    return !!this.personnummer;
+  }
+
+  /**
    * Get the organization type.
    *
    * @return string
