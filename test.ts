@@ -50,7 +50,7 @@ it('should get type from organization numbers', () => {
   };
 
   Object.entries(numbers).forEach(([input, output]) =>
-    expect(Organisationsnummer.parse(input).getType()).toBe(output)
+    expect(Organisationsnummer.parse(input).type()).toBe(output)
   );
 });
 
@@ -64,8 +64,8 @@ it('should work with personnummer', () => {
     const org = Organisationsnummer.parse(input);
     expect(org.format(false)).toBe(output.replace('-', ''));
     expect(org.format(true)).toBe(output);
-    expect(org.getType()).toBe(type);
+    expect(org.type()).toBe(type);
     expect(org.isPersonnummer()).toBeTruthy();
-    expect(org.getPersonnummer()).toBeInstanceOf(Personnummer);
+    expect(org.personnummer()).toBeInstanceOf(Personnummer);
   });
 });

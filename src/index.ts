@@ -15,7 +15,7 @@ class Organisationsnummer {
    *
    * @var {Personnummer}
    */
-  private personnummer!: InstanceType<typeof Personnummer>;
+  private _personnummer!: InstanceType<typeof Personnummer>;
 
   /**
    * Parse organisationsnummer.
@@ -56,7 +56,7 @@ class Organisationsnummer {
       this.number = number;
     } catch (err) {
       try {
-        this.personnummer = Personnummer.parse(input);
+        this._personnummer = Personnummer.parse(input);
       } catch (_) {
         throw err;
       }
@@ -109,8 +109,8 @@ class Organisationsnummer {
   public format(separator = true): string {
     let number = this.number;
 
-    if (this.personnummer) {
-      number = this.personnummer.format(true).slice(2, 12);
+    if (this.isPersonnummer()) {
+      number = this._personnummer.format(true).slice(2, 12);
     }
 
     return separator ? number.slice(0, 6) + '-' + number.slice(6) : number;
@@ -121,8 +121,8 @@ class Organisationsnummer {
    *
    * @return {Personnummer}
    */
-  public getPersonnummer(): Personnummer {
-    return this.personnummer;
+  public personnummer(): Personnummer {
+    return this._personnummer;
   }
 
   /**
@@ -131,7 +131,7 @@ class Organisationsnummer {
    * @return {boolean}
    */
   public isPersonnummer(): boolean {
-    return !!this.personnummer;
+    return !!this._personnummer;
   }
 
   /**
@@ -139,8 +139,8 @@ class Organisationsnummer {
    *
    * @return string
    */
-  public getType(): string {
-    if (this.personnummer) {
+  public type(): string {
+    if (this.isPersonnummer()) {
       return 'Enskild firma';
     }
 
