@@ -13,7 +13,7 @@ npm install --save organisationsnummer
 ```javascript
 import Organisationsnummer from "organisationsnummer";
 
-Organisationsnummer.valid("198507099805");
+Organisationsnummer.valid("202100-5489");
 //=> true
 ```
 
