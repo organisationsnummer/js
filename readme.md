@@ -11,9 +11,9 @@ npm install --save organisationsnummer
 ## Example
 
 ```javascript
-import Organisationsnummer from "organisationsnummer";
+import Organisationsnummer from 'organisationsnummer';
 
-Organisationsnummer.valid("202100-5489");
+Organisationsnummer.valid('202100-5489');
 //=> true
 ```
 
