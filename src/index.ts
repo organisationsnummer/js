@@ -121,8 +121,8 @@ class Organisationsnummer {
    *
    * @return {Personnummer}
    */
-  public personnummer(): Personnummer {
-    return this._personnummer;
+  public personnummer(): Personnummer | null {
+    return this._personnummer || null;
   }
 
   /**
