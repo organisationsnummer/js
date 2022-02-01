@@ -66,6 +66,6 @@ it('should work with personnummer', () => {
     expect(org.format(true)).toBe(output);
     expect(org.type()).toBe(type);
     expect(org.isPersonnummer()).toBeTruthy();
-    expect(org.personnummer()).toBeInstanceOf(Personnummer);
+    expect(org.personnummer().constructor.name).toBe('Personnummer');
   });
 });
