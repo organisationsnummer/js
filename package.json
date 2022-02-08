@@ -1,7 +1,7 @@
 {
   "name": "organisationsnummer",
   "description": "Validate Swedish organization numbers",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "license": "MIT",
   "homepage": "https://github.com/organisationsnummer/js",
   "author": {
@@ -27,7 +27,7 @@
   "module": "dist/esm/index.js",
   "types": "dist/types",
   "dependencies": {
-    "personnummer": "^3.1.4"
+    "personnummer": "^3.1.0"
   },
   "devDependencies": {
     "@pinefile/pine": "^1.4.1",
@@ -49,7 +49,9 @@
     "identity",
     "social",
     "security",
-    "numbers"
+    "numbers",
+    "organisationsnummer",
+    "organization"
   ],
   "funding": {
     "type": "opencollective",
