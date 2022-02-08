@@ -158,6 +158,15 @@ class Organisationsnummer {
 
     return types[+this.number[0]] || unkown;
   }
+
+  /**
+   * Get vat number for a organization number.
+   *
+   * @return string
+   */
+  public vatNumber(): string {
+    return `SE${this.format(false)}01`;
+  }
 }
 
 export default Organisationsnummer;

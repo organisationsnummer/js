@@ -54,7 +54,19 @@ it('should get type from organization numbers', () => {
   );
 });
 
-it('should work with personnummer', () => {
+it('should get vat number for organization numbers', () => {
+  const numbers = {
+    '556016-0680': 'SE556016068001',
+    '556103-4249': 'SE556103424901',
+    '5561034249': 'SE556103424901',
+  };
+
+  Object.entries(numbers).forEach(([input, output]) =>
+    expect(Organisationsnummer.parse(input).vatNumber()).toBe(output)
+  );
+});
+
+it('should work with personal identity numbers', () => {
   const type = 'Enskild firma';
   const numbers = { '121212121212': '121212-1212' };
 
@@ -68,4 +80,15 @@ it('should work with personnummer', () => {
     expect(org.isPersonnummer()).toBeTruthy();
     expect(org.personnummer().constructor.name).toBe('Personnummer');
   });
+});
+
+it('should get vat number for personal identity numbers', () => {
+  const numbers = {
+    '121212121212': 'SE121212121201',
+    '12121212-1212': 'SE121212121201',
+  };
+
+  Object.entries(numbers).forEach(([input, output]) =>
+    expect(Organisationsnummer.parse(input).vatNumber()).toBe(output)
+  );
 });
