@@ -30,7 +30,7 @@
     "personnummer": "^3.1.4"
   },
   "devDependencies": {
-    "@pinefile/pine": "^2.0.1",
+    "@pinefile/pine": "^2.0.2",
     "@types/jest": "^28.1.8",
     "@typescript-eslint/eslint-plugin": "^5.39.0",
     "@typescript-eslint/parser": "^5.39.0",
