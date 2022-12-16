@@ -1,4 +1,4 @@
-# organisationsnummer [![Build Status](https://img.shields.io/github/workflow/status/organisationsnummer/js/build)](https://github.com/organisationsnummer/js/actions) [![NPM Downloads](https://img.shields.io/npm/dm/organisationsnummer.svg)](https://www.npmjs.com/package/organisationsnummer)
+# organisationsnummer [![Build Status](https://img.shields.io/github/actions/workflow/status/organisationsnummer/js/nodejs.yml?branch=master)](https://github.com/organisationsnummer/js/actions) [![NPM Downloads](https://img.shields.io/npm/dm/organisationsnummer.svg)](https://www.npmjs.com/package/organisationsnummer)
 
 Validate Swedish organization numbers. Follows version 1.1 of the [specification](https://github.com/organisationsnummer/meta#package-specification-v11).
 
