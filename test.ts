@@ -3,7 +3,7 @@ const lib = require(process.env.FILE);
 const Organisationsnummer = lib.default ? lib.default : lib;
 
 it('should validate valid organization numbers', () => {
-  const numbers = ['556016-0680', '556103-4249', '5561034249'];
+  const numbers = ['556016-0680', '556103-4249', '5561034249', '559244-0001'];
 
   numbers.forEach((number) =>
     expect(Organisationsnummer.valid(number)).toBeTruthy()
@@ -20,6 +20,7 @@ it('should validate invalid organization numbers', () => {
 
 it('should format organization numbers without separator', () => {
   const numbers = {
+    '559244-0001': '5592440001',
     '556016-0680': '5560160680',
     '556103-4249': '5561034249',
     '5561034249': '5561034249',
@@ -32,6 +33,7 @@ it('should format organization numbers without separator', () => {
 
 it('should format organization numbers with separator', () => {
   const numbers = {
+    '559244-0001': '559244-0001',
     '556016-0680': '556016-0680',
     '556103-4249': '556103-4249',
     '5561034249': '556103-4249',
@@ -44,6 +46,7 @@ it('should format organization numbers with separator', () => {
 
 it('should get type from organization numbers', () => {
   const numbers = {
+    '559244-0001': 'Aktiebolag',
     '556016-0680': 'Aktiebolag',
     '556103-4249': 'Aktiebolag',
     '5561034249': 'Aktiebolag',
@@ -56,6 +59,7 @@ it('should get type from organization numbers', () => {
 
 it('should get vat number for organization numbers', () => {
   const numbers = {
+    '559244-0001': 'SE559244000101',
     '556016-0680': 'SE556016068001',
     '556103-4249': 'SE556103424901',
     '5561034249': 'SE556103424901',

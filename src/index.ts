@@ -24,8 +24,7 @@ class Organisationsnummer {
    */
   private parse(input: string) {
     try {
-      const reg =
-        /^(\d{2}){0,1}(\d{2})(\d{2})(\d{2})([-+]?)?((?!000)\d{3})(\d)$/g;
+      const reg = /^(\d{2}){0,1}(\d{2})(\d{2})(\d{2})([-+]?)?(\d{3})(\d)$/g;
       const match = reg.exec(input);
 
       if (!match) {
