@@ -1,15 +1,34 @@
-const isCI = require('is-ci');
-const { run, log, series } = require('@pinefile/pine');
-const { build } = require('esbuild');
+import { run, log, series } from '@pinefile/pine';
+import isCI from 'is-ci';
+import { build as esbuild } from 'esbuild';
+import fs from 'fs';
 
 const buildOptions = (format) => ({
   entryPoints: ['./src/index.ts'],
   bundle: true,
   format,
   outfile: `./dist/${format}/index.js`,
+  write: false,
 });
 
-module.exports = {
+const build = async (options) => {
+  fs.mkdirSync(`./dist/${options.format}`);
+
+  const result = await esbuild(options);
+
+  for (let out of result.outputFiles) {
+    fs.writeFileSync(
+      out.path,
+      options.format === 'cjs'
+        ? // fixes personnummer#468
+          out.text.replace('module.exports = __toCommonJS(src_exports);', '') +
+            'module.exports = src_default2;'
+        : out.text
+    );
+  }
+};
+
+export default {
   build: async () => {
     await run('rimraf dist');
 

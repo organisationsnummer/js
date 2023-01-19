@@ -1,3 +1,4 @@
 node_modules
-main.ts
+/main.ts
 dist
+/index.js
