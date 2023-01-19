@@ -27,7 +27,7 @@
   "module": "dist/esm/index.js",
   "types": "dist/types",
   "dependencies": {
-    "personnummer": "^3.1.4"
+    "personnummer": "^3.1.5"
   },
   "devDependencies": {
     "@pinefile/pine": "^2.0.2",
