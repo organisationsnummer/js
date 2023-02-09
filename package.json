@@ -30,6 +30,7 @@
     "personnummer": "^3.1.5"
   },
   "devDependencies": {
+    "@frozzare/pkg": "^1.0.6",
     "@pinefile/pine": "^2.0.3",
     "@types/jest": "^29.4.0",
     "@typescript-eslint/eslint-plugin": "^5.51.0",
