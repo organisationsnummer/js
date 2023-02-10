@@ -1,7 +1,8 @@
-const lib = require(process.env.FILE);
+import { it, expect } from 'vitest';
+
 const Organisationsnummer = process.env.FILE?.includes('cjs')
-  ? lib
-  : lib.default;
+  ? require(process.env.FILE)
+  : (await import(process.env.FILE)).default;
 
 it('should validate valid organization numbers', () => {
   const numbers = ['556016-0680', '556103-4249', '5561034249', '559244-0001'];
