@@ -1,4 +1,9 @@
-const lib = require(process.env.FILE);
+import { it, expect } from 'vitest';
+
+const lib = process.env.FILE?.includes('cjs')
+  ? require(process.env.FILE)
+  : await import(process.env.FILE);
+
 const Organisationsnummer = process.env.FILE?.includes('cjs')
   ? lib
   : lib.default;
