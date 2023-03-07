@@ -1,109 +1,108 @@
 import { it, expect } from 'vitest';
+import { request } from 'undici';
 
 const Organisationsnummer = process.env.FILE?.includes('cjs')
   ? require(process.env.FILE)
   : (await import(process.env.FILE)).default;
 
-it('should validate valid organization numbers', () => {
-  const numbers = [
-    '165560160680',
-    '556016-0680',
-    '556103-4249',
-    '5561034249',
-    '559244-0001',
-  ];
+const _testList = {};
 
-  numbers.forEach((number) => {
-    expect(Organisationsnummer.valid(number)).toBeTruthy();
-  });
+const testList = (file = 'list'): Promise<any> => {
+  if (Array.isArray(_testList[file]) && _testList[file].length) {
+    return new Promise((resolve) => {
+      resolve(_testList[file].length);
+    });
+  }
+
+  const res = request(
+    `https://raw.githubusercontent.com/organisationsnummer/meta/main/testdata/${file}.json`,
+    {}
+  ).then((p) => p.body.json());
+
+  _testList[file] = res;
+
+  return res;
+};
+
+it('should validate valid organization numbers', async () => {
+  const list = await testList();
+
+  list
+    .filter((item) => item.valid)
+    .forEach((item) => {
+      expect(Organisationsnummer.valid(item.input)).toBeTruthy();
+    });
 });
 
-it('should validate invalid organization numbers', () => {
-  const numbers = ['556016-0681', '556103-4250', '5561034250'];
+it('should validate invalid organization numbers', async () => {
+  const list = await testList();
 
-  numbers.forEach((number) =>
-    expect(Organisationsnummer.valid(number)).toBeFalsy()
-  );
+  list
+    .filter((item) => !item.valid)
+    .forEach((item) => expect(Organisationsnummer.valid(item)).toBeFalsy());
 });
 
-it('should format organization numbers without separator', () => {
-  const numbers = {
-    '165560160680': '5560160680',
-    '559244-0001': '5592440001',
-    '556016-0680': '5560160680',
-    '556103-4249': '5561034249',
-    '5561034249': '5561034249',
-  };
+it('should format organization numbers without separator', async () => {
+  const list = await testList();
 
-  Object.entries(numbers).forEach(([input, output]) =>
-    expect(Organisationsnummer.parse(input).format(false)).toBe(output)
-  );
+  list
+    .filter((item) => item.valid)
+    .forEach((item) =>
+      expect(Organisationsnummer.parse(item.input).format(false)).toBe(
+        item.short_format
+      )
+    );
 });
 
-it('should format organization numbers with separator', () => {
-  const numbers = {
-    '165560160680': '556016-0680',
-    '559244-0001': '559244-0001',
-    '556016-0680': '556016-0680',
-    '556103-4249': '556103-4249',
-    '5561034249': '556103-4249',
-  };
+it('should format organization numbers with separator', async () => {
+  const list = await testList();
 
-  Object.entries(numbers).forEach(([input, output]) =>
-    expect(Organisationsnummer.parse(input).format()).toBe(output)
-  );
+  list
+    .filter((item) => item.valid)
+    .forEach((item) =>
+      expect(Organisationsnummer.parse(item.input).format()).toBe(
+        item.long_format
+      )
+    );
 });
 
-it('should get type from organization numbers', () => {
-  const numbers = {
-    '559244-0001': 'Aktiebolag',
-    '556016-0680': 'Aktiebolag',
-    '556103-4249': 'Aktiebolag',
-    '5561034249': 'Aktiebolag',
-  };
+it('should get type from organization numbers', async () => {
+  const list = await testList();
 
-  Object.entries(numbers).forEach(([input, output]) =>
-    expect(Organisationsnummer.parse(input).type()).toBe(output)
-  );
+  list
+    .filter((item) => item.valid)
+    .forEach((item) =>
+      expect(Organisationsnummer.parse(item.input).type()).toBe(item.type)
+    );
 });
 
-it('should get vat number for organization numbers', () => {
-  const numbers = {
-    '165560160680': 'SE556016068001',
-    '559244-0001': 'SE559244000101',
-    '556016-0680': 'SE556016068001',
-    '556103-4249': 'SE556103424901',
-    '5561034249': 'SE556103424901',
-  };
+it('should get vat number for organization numbers', async () => {
+  const list = await testList();
 
-  Object.entries(numbers).forEach(([input, output]) =>
-    expect(Organisationsnummer.parse(input).vatNumber()).toBe(output)
-  );
+  list
+    .filter((item) => item.valid)
+    .forEach((item) =>
+      expect(Organisationsnummer.parse(item.input).vatNumber()).toBe(
+        item.vat_number
+      )
+    );
 });
 
-it('should work with personal identity numbers', () => {
-  const type = 'Enskild firma';
-  const numbers = { '121212121212': '121212-1212' };
+it('should work with personal identity numbers', async () => {
+  const list = await testList();
 
-  Object.entries(numbers).forEach(([input, output]) => {
-    expect(Organisationsnummer.valid(output)).toBeTruthy();
-    expect(Organisationsnummer.valid(input)).toBeTruthy();
-    const org = Organisationsnummer.parse(input);
-    expect(org.format(false)).toBe(output.replace('-', ''));
-    expect(org.format(true)).toBe(output);
-    expect(org.type()).toBe(type);
-    expect(org.isPersonnummer()).toBeTruthy();
-    expect(org.personnummer().constructor.name).toBe('Personnummer');
-  });
-});
-
-it('should get vat number for personal identity numbers', () => {
-  const numbers = {
-    '121212121212': 'SE121212121201',
-    '12121212-1212': 'SE121212121201',
-  };
-
-  Object.entries(numbers).forEach(([input, output]) =>
-    expect(Organisationsnummer.parse(input).vatNumber()).toBe(output)
-  );
+  list
+    .filter((item) => item.valid)
+    .filter((item) => item.type === 'Enskild firma')
+    .forEach((item) => {
+      expect(Organisationsnummer.valid(item.long_format)).toBeTruthy();
+      expect(Organisationsnummer.valid(item.input)).toBeTruthy();
+      const org = Organisationsnummer.parse(item.input);
+      expect(org.format(false)).toBe(item.short_format);
+      expect(org.format(true)).toBe(item.long_format);
+      expect(org.type()).toBe(item.type);
+      expect(org.isPersonnummer()).toBeTruthy();
+      expect(org.personnummer().constructor.name).toBe('Personnummer');
+      expect(org.vatNumber()).toBe(item.vat_number);
+    });
 });
