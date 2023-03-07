@@ -5,11 +5,17 @@ const Organisationsnummer = process.env.FILE?.includes('cjs')
   : (await import(process.env.FILE)).default;
 
 it('should validate valid organization numbers', () => {
-  const numbers = ['556016-0680', '556103-4249', '5561034249', '559244-0001'];
+  const numbers = [
+    '165560160680',
+    '556016-0680',
+    '556103-4249',
+    '5561034249',
+    '559244-0001',
+  ];
 
-  numbers.forEach((number) =>
-    expect(Organisationsnummer.valid(number)).toBeTruthy()
-  );
+  numbers.forEach((number) => {
+    expect(Organisationsnummer.valid(number)).toBeTruthy();
+  });
 });
 
 it('should validate invalid organization numbers', () => {
@@ -22,6 +28,7 @@ it('should validate invalid organization numbers', () => {
 
 it('should format organization numbers without separator', () => {
   const numbers = {
+    '165560160680': '5560160680',
     '559244-0001': '5592440001',
     '556016-0680': '5560160680',
     '556103-4249': '5561034249',
@@ -35,6 +42,7 @@ it('should format organization numbers without separator', () => {
 
 it('should format organization numbers with separator', () => {
   const numbers = {
+    '165560160680': '556016-0680',
     '559244-0001': '559244-0001',
     '556016-0680': '556016-0680',
     '556103-4249': '556103-4249',
@@ -61,6 +69,7 @@ it('should get type from organization numbers', () => {
 
 it('should get vat number for organization numbers', () => {
   const numbers = {
+    '165560160680': 'SE556016068001',
     '559244-0001': 'SE559244000101',
     '556016-0680': 'SE556016068001',
     '556103-4249': 'SE556103424901',

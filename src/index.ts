@@ -31,11 +31,15 @@ class Organisationsnummer {
         throw new OrganisationsnummerError();
       }
 
-      const number = input.replace('-', '');
+      let number = input.replace('-', '');
 
       // May only be prefixed with 16.
-      if (match[1] && +match[1] !== 16) {
-        throw new OrganisationsnummerError();
+      if (match[1]) {
+        if (+match[1] !== 16) {
+          throw new OrganisationsnummerError();
+        } else {
+          number = number.slice(2);
+        }
       }
 
       // Third digit bust be more than 20.
