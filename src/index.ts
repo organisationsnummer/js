@@ -20,18 +20,22 @@ class Organisationsnummer {
   /**
    * Parse organisationsnummer.
    *
-   * @param {string} input
+   * @param {string} org
    */
-  private parse(input: string) {
+  private parse(org: string) {
+    if (org.length < 10 || org.length > 13) {
+      throw new OrganisationsnummerError();
+    }
+
     try {
       const reg = /^(\d{2}){0,1}(\d{2})(\d{2})(\d{2})([-+]?)?(\d{3})(\d)$/g;
-      const match = reg.exec(input);
+      const match = reg.exec(org);
 
       if (!match) {
         throw new OrganisationsnummerError();
       }
 
-      let number = input.replace('-', '');
+      let number = org.replace('-', '');
 
       // May only be prefixed with 16.
       if (match[1]) {
@@ -59,7 +63,7 @@ class Organisationsnummer {
       this.number = number;
     } catch (err) {
       try {
-        this._personnummer = Personnummer.parse(input);
+        this._personnummer = Personnummer.parse(org);
       } catch (_) {
         throw err;
       }
@@ -69,33 +73,33 @@ class Organisationsnummer {
   /**
    * Organisationsnummer constructor.
    *
-   * @param {string} ssn
+   * @param {string} org
    */
-  constructor(input: string) {
-    this.parse(input);
+  constructor(org: string) {
+    this.parse(org);
   }
 
   /**
    * Parse organisationsnummer.
    *
-   * @param {string} input
+   * @param {string} org
    *
    * @return {Organisationsnummer}
    */
-  static parse(input: string): Organisationsnummer {
-    return new Organisationsnummer(input);
+  static parse(org: string): Organisationsnummer {
+    return new Organisationsnummer(org);
   }
 
   /**
    * Validate a Swedish organization number.
    *
-   * @param {string} input
+   * @param {string} org
    *
    * @return {boolean}
    */
-  static valid(input: string): boolean {
+  static valid(org: string): boolean {
     try {
-      this.parse(input);
+      this.parse(org);
       return true;
     } catch (err) {
       return false;
