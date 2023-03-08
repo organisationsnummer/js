@@ -1,7 +1,7 @@
 {
   "name": "organisationsnummer",
   "description": "Validate Swedish organization numbers",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "license": "MIT",
   "homepage": "https://github.com/organisationsnummer/js",
   "author": {
