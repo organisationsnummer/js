@@ -1,0 +1,4 @@
+name: "JavaScript"
+maintainer: "@frozzare"
+spec: 1.1
+workflow: "nodejs.yml"
