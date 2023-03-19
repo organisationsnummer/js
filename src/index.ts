@@ -152,7 +152,7 @@ class Organisationsnummer {
     }
 
     const unkown = 'Okänt';
-    const types = {
+    const types: Record<number, string> = {
       1: 'Dödsbon',
       2: 'Stat, landsting, kommun eller församling',
       3: 'Utländska företag som bedriver näringsverksamhet eller äger fastigheter i Sverige',
