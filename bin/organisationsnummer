@@ -14,10 +14,12 @@ const main = () => {
 
   try {
     const org = Organisationsnummer.parse(argv[0]);
-    console.log(`Organisationsnummer: ${argv[0]}
-               Type: ${org.type()}
-         VAT number: ${org.vatNumber()}
-       Personnummer: ${org.isPersonnummer()}`);
+    console.log(`       Valid: true
+Short format: ${org.format(false)}
+ Long format: ${org.format()}
+        Type: ${org.type()}
+  VAT number: ${org.vatNumber()}
+Personnummer: ${org.isPersonnummer()}`);
   } catch (err) {
     console.log("Invalid organization number provided");
   }
