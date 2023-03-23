@@ -16,7 +16,7 @@ const main = () => {
     const org = Organisationsnummer.parse(argv[0]);
     console.log(`Organisationsnummer: ${argv[0]}
                Type: ${org.type()}
-         Vat number: ${org.vatNumber()}
+         VAT number: ${org.vatNumber()}
        Personnummer: ${org.isPersonnummer()}`);
   } catch (err) {
     console.log("Invalid organization number provided");
