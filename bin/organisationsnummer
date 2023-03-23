@@ -1,0 +1,26 @@
+#!/usr/bin/env node
+
+const fs = require("fs");
+const Organisationsnummer = fs.existsSync(`${__dirname}/../dist/cjs/index.js`)
+  ? require(`${__dirname}/../dist/cjs/index.js`)
+  : require(`${__dirname}/../src/index.ts`);
+
+const main = () => {
+  const argv = process.argv.slice(2);
+  if (argv.length < 1) {
+    console.log("Usage: npx organisationsnummer <organisationsnummer>");
+    return;
+  }
+
+  try {
+    const org = Organisationsnummer.parse(argv[0]);
+    console.log(`Organisationsnummer: ${argv[0]}
+               Type: ${org.type()}
+         Vat number: ${org.vatNumber()}
+       Personnummer: ${org.isPersonnummer()}`);
+  } catch (err) {
+    console.log("Invalid organization number provided");
+  }
+};
+
+main();
