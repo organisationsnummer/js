@@ -30,7 +30,7 @@
   "module": "dist/esm/index.js",
   "types": "dist/types",
   "dependencies": {
-    "personnummer": "^3.2.0"
+    "personnummer": "^3.2.1"
   },
   "devDependencies": {
     "@frozzare/pkg": "^1.0.7",
