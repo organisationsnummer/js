@@ -115,15 +115,14 @@ class Organisationsnummer {
    */
   public format(separator = true): string {
     let number = this.number;
-    let char = '-';
 
     if (this.isPersonnummer()) {
-      number = this._personnummer.format(false);
-      char = number.includes('+') ? '+' : '-';
-      number = number.replace(char, '');
+      return this._personnummer
+        .format(!separator)
+        .substring(!separator ? 2 : 0);
     }
 
-    return separator ? number.slice(0, 6) + char + number.slice(6) : number;
+    return separator ? number.slice(0, 6) + '-' + number.slice(6) : number;
   }
 
   /**
