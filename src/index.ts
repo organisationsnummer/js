@@ -120,7 +120,7 @@ class Organisationsnummer {
     if (this.isPersonnummer()) {
       number = this._personnummer.format(false);
       char = number.includes('+') ? '+' : '-';
-      number = number.replace(/-+/, '');
+      number = number.replace(char, '');
     }
 
     return separator ? number.slice(0, 6) + char + number.slice(6) : number;
