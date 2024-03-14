@@ -35,7 +35,7 @@ class Organisationsnummer {
         throw new OrganisationsnummerError();
       }
 
-      let number = org.replace('-', '');
+      let number = org.replace('-', '').replace('+', '');
 
       // May only be prefixed with 16.
       if (match[1]) {
@@ -177,5 +177,8 @@ class Organisationsnummer {
     return `SE${this.format(false)}01`;
   }
 }
+
+export const parse = Organisationsnummer.parse;
+export const valid = Organisationsnummer.valid;
 
 export default Organisationsnummer;

@@ -19,5 +19,5 @@ export const luhn = (str: string): boolean => {
     sum += v;
   }
 
-  return sum % 10 === 0;
+  return str.length && sum % 10 === 0;
 };
