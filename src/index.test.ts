@@ -8,7 +8,7 @@ type TestFile = {
   valid: boolean;
   type: string;
   vat_number: string;
-}
+};
 
 const file = process.env.FILE || '.';
 const Organisationsnummer = file.includes('cjs')
@@ -26,7 +26,7 @@ const testList = (file = 'list'): Promise<TestFile> => {
 
   const res = request(
     `https://raw.githubusercontent.com/organisationsnummer/meta/main/testdata/${file}.json`,
-    {}
+    {},
   ).then((p) => p.body.json());
 
   _testList[file] = res;
@@ -59,8 +59,8 @@ it('should format organization numbers without separator', async () => {
     .filter((item) => item.valid)
     .forEach((item) =>
       expect(Organisationsnummer.parse(item.input).format(false)).toBe(
-        item.short_format
-      )
+        item.short_format,
+      ),
     );
 });
 
@@ -71,8 +71,8 @@ it('should format organization numbers with separator', async () => {
     .filter((item) => item.valid)
     .forEach((item) =>
       expect(Organisationsnummer.parse(item.input).format()).toBe(
-        item.long_format
-      )
+        item.long_format,
+      ),
     );
 });
 
@@ -82,7 +82,7 @@ it('should get type from organization numbers', async () => {
   list
     .filter((item) => item.valid)
     .forEach((item) =>
-      expect(Organisationsnummer.parse(item.input).type()).toBe(item.type)
+      expect(Organisationsnummer.parse(item.input).type()).toBe(item.type),
     );
 });
 
@@ -93,8 +93,8 @@ it('should get vat number for organization numbers', async () => {
     .filter((item) => item.valid)
     .forEach((item) =>
       expect(Organisationsnummer.parse(item.input).vatNumber()).toBe(
-        item.vat_number
-      )
+        item.vat_number,
+      ),
     );
 });
 
