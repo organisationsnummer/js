@@ -11,7 +11,8 @@ type TestFile = {
 
 const file = process.env.FILE || '.';
 const Organisationsnummer = file.includes('cjs')
-  ? require(file)
+  ? // eslint-disable-next-line
+    require(file)
   : (await import(file)).default;
 
 const _testList = {};

@@ -64,7 +64,7 @@ class Organisationsnummer {
     } catch (err) {
       try {
         this._personnummer = Personnummer.parse(org);
-      } catch (_) {
+      } catch (_err) {
         throw err;
       }
     }
@@ -101,7 +101,7 @@ class Organisationsnummer {
     try {
       this.parse(org);
       return true;
-    } catch (err) {
+    } catch (_err) {
       return false;
     }
   }
