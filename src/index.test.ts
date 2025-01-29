@@ -1,5 +1,4 @@
 import { it, expect } from 'vitest';
-import { request } from 'undici';
 
 type TestFile = {
   input: string;
@@ -24,10 +23,10 @@ const testList = (file = 'list'): Promise<TestFile> => {
     });
   }
 
-  const res = request(
+  const res = fetch(
     `https://raw.githubusercontent.com/organisationsnummer/meta/main/testdata/${file}.json`,
     {},
-  ).then((p) => p.body.json());
+  ).then((p) => p.json());
 
   _testList[file] = res;
 
