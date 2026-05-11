@@ -46,7 +46,7 @@
     "rimraf": "^6.1.3",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.59.2",
-    "vitest": "^4.1.5"
+    "vitest": "^4.1.6"
   },
   "keywords": [
     "personnummer",
