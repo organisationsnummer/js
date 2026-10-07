@@ -33,7 +33,7 @@
   "module": "dist/esm/index.js",
   "types": "dist/types",
   "dependencies": {
-    "personnummer": "^3.2.1"
+    "personnummer": "^3.3.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.5",
