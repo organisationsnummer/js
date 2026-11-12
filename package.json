@@ -8,9 +8,8 @@
     "organisationsnummer": "bin/organisationsnummer"
   },
   "author": {
-    "name": "Fredrik Forsmo",
-    "email": "fredrik.forsmo@gmail.com",
-    "url": "https://frozzare.com"
+    "name": "Rasmus Graham",
+    "url": "https://github.com/rasmusbe"
   },
   "repository": {
     "type": "git",
