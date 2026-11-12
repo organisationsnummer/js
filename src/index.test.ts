@@ -116,3 +116,11 @@ it('should work with personal identity numbers', async () => {
       expect(org.vatNumber()).toBe(item.vat_number);
     });
 });
+
+it('should work when the static methods are used detached from the class', () => {
+  const { valid, parse } = Organisationsnummer;
+
+  expect(valid('202100-5489')).toBe(true);
+  expect(valid('202100-5488')).toBe(false);
+  expect(parse('202100-5489').format()).toBe('202100-5489');
+});

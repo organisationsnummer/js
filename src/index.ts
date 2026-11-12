@@ -99,7 +99,7 @@ class Organisationsnummer {
    */
   static valid(org: string): boolean {
     try {
-      this.parse(org);
+      Organisationsnummer.parse(org);
       return true;
     } catch (_err) {
       return false;
