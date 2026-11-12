@@ -1,14 +1,6 @@
 {
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:base"
-  ],
-  "rangeStrategy": "bump",
-  "automerge": true,
-  "major": {
-    "automerge": false
-  },
-  "minor": {
-    "automerge": false
-  },
-  "separateMultipleMajor": true
+    "github>personnummer/.github:renovate-config"
+  ]
 }
