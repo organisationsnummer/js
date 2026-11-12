@@ -17,7 +17,7 @@ Organisationsnummer.valid('202100-5489');
 //=> true
 ```
 
-See [test.ts](test.ts) for more examples.
+See [src/index.test.ts](src/index.test.ts) for more examples.
 
 ## In memoriam
 
