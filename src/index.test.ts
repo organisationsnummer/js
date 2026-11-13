@@ -25,7 +25,7 @@ const testList = (file = 'list'): Promise<TestFile> => {
   }
 
   const res = fetch(
-    `https://raw.githubusercontent.com/organisationsnummer/meta/main/testdata/${file}.json`,
+    `https://raw.githubusercontent.com/organisationsnummer/meta/HEAD/testdata/${file}.json`,
     {},
   ).then((p) => p.json());
 
