@@ -1,0 +1,9 @@
+{
+  "name": "@organisationsnummer/organisationsnummer",
+  "version": "1.2.0",
+  "exports": "./src/index.ts",
+  "publish": {
+    "include": ["LICENSE", "readme.md", "src/*.ts", "jsr.json"],
+    "exclude": ["src/*.test.ts"]
+  }
+}
