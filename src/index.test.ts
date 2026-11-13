@@ -49,7 +49,7 @@ it('should validate invalid organization numbers', async () => {
 
   list
     .filter((item) => !item.valid)
-    .forEach((item) => expect(Organisationsnummer.valid(item)).toBeFalsy());
+    .forEach((item) => expect(Organisationsnummer.valid(item.input)).toBeFalsy());
 });
 
 it('should format organization numbers without separator', async () => {
