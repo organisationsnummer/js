@@ -22,11 +22,11 @@
     "node": "^18.18.0 || >=20.0.0"
   },
   "scripts": {
-    "build": "pine build",
+    "build": "node scripts/build.mjs",
     "format": "prettier --write 'src/**/*.ts'",
     "lint": "eslint src",
     "prepublishOnly": "npm run build",
-    "test": "pine test"
+    "test": "node scripts/test.mjs"
   },
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -36,13 +36,10 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.0",
-    "@pinefile/pine": "^3.0.0",
     "@types/jest": "^30.0.0",
     "esbuild": "^0.28.0",
     "eslint": "^10.0.0",
-    "is-ci": "^4.1.0",
     "prettier": "^3.8.5",
-    "rimraf": "^6.1.4",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.59.4",
     "vitest": "^5.1.0"
